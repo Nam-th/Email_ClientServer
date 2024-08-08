@@ -1,7 +1,5 @@
-
 package Server;
 
-import Model.EmailData;
 import Model.Ceasar;
 import Model.User;
 import static Server.DatabaseManager.connect;
@@ -28,7 +26,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import javax.swing.JOptionPane;
-
 
 public class MailServer {
 
@@ -132,7 +129,7 @@ public class MailServer {
                 } else if ("no_attachment".equals(messageType)) {
                     savePath = "";
                 }
-                String message = UserManager.getUserByIp(clientSocket.getInetAddress().getHostAddress()).getUserId() + ":" + ceasar.Encrypt(content, UserManager.getUserByIp(clientSocket.getInetAddress().getHostAddress()).getUserId()) + "@";;
+                String message = UserManager.getUserByIp(clientSocket.getInetAddress().getHostAddress()).getUserId() + ":" + ceasar.Encrypt(content, UserManager.getUserByIp(clientSocket.getInetAddress().getHostAddress()).getUserId()) + "@";
                 if (allRec.length >= 1) {
                     if ("CC".equals(role)) {
                         cc = 1;
@@ -143,7 +140,7 @@ public class MailServer {
                     for (int i = 0; i < allRec.length; i++) {
 
                         //ma hoa
-                        Connection connection = connect();
+                        Connection connection = DatabaseManager.getConnection();
                         String query = "Select user_id from Users WHERE username = ?";
                         PreparedStatement preparedStatement = connection.prepareStatement(query);
                         preparedStatement.setString(1, allRec[i]);
@@ -174,7 +171,7 @@ public class MailServer {
             } else if ("hopthuden".equals(requestType)) {
                 try {
                     // Kết nối đến cơ sở dữ liệu
-                    Connection connection = DatabaseManager.connect();
+                    Connection connection = DatabaseManager.getConnection();
 
                     // Tạo câu lệnh truy vấn
                     String query = "select e.email_id, e.timestamp, u.username, e.subject, e.body from Emails e join Recipients r on e.email_id = r.email_id join Users u on u.user_id = e.sender_id where r.user_id = ? order by e.timestamp desc";
@@ -234,7 +231,7 @@ public class MailServer {
             } else if ("thudagui".equals(requestType)) {
                 try {
                     // Kết nối đến cơ sở dữ liệu
-                    Connection connection = DatabaseManager.connect();
+                    Connection connection = DatabaseManager.getConnection();
 
                     // Tạo câu lệnh truy vấn
                     String query = "SELECT e.timestamp,u.username,  e.subject, e.body\n"
@@ -287,7 +284,7 @@ public class MailServer {
             } else if ("thurac".equals(requestType)) {
                 try {
                     // Kết nối đến cơ sở dữ liệu
-                    Connection connection = DatabaseManager.connect();
+                    Connection connection = DatabaseManager.getConnection();
 
                     // Tạo câu lệnh truy vấn
                     String query = "select e.timestamp, u.username, e.subject, e.body from Emails e join Recipients r on e.email_id = r.email_id join Users u on u.user_id = e.sender_id where r.user_id = ? and e.is_spam = 1 order by e.timestamp desc";
@@ -326,10 +323,14 @@ public class MailServer {
                 try {
                     int IP = inputStream.readInt();
                     // Kết nối đến cơ sở dữ liệu
-                    Connection connection = DatabaseManager.connect();
+                    Connection connection = DatabaseManager.getConnection();
 
                     // Tạo câu lệnh truy vấn
-                    String query = "SELECT distinct u.username, e.file_name FROM Recipients r JOIN Users u ON r.user_id = u.user_id,EmailAttachments e where (r.email_id = ? and e.email_id = r.email_id)";
+                    String query = "SELECT DISTINCT u.username, e.file_name "
+                            + "FROM Recipients r "
+                            + "JOIN Users u ON r.user_id = u.user_id "
+                            + "JOIN EmailAttachments e ON e.email_id = r.email_id "
+                            + "WHERE r.email_id = ?";
                     PreparedStatement preparedStatement = connection.prepareStatement(query);
 
                     // Đặt giá trị cho tham số

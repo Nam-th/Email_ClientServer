@@ -5,40 +5,49 @@ import Model.User;
 
 //import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 //import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
-//import java.io.DataInputStream;
-//import java.io.DataOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-//import java.net.Authenticator;
-//import java.net.PasswordAuthentication;
-//import java.net.Socket;
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
+import java.net.Socket;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-//import java.util.Properties;
-//import sun.rmi.transport.Transport;
+import java.util.Properties;
+import sun.rmi.transport.Transport;
 
 
 public class DatabaseManager {
 
-    private static final String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=De10;encrypt=true;trustServerCertificate=true";
-    private static final String DB_USER = "sa";
-    private static final String DB_PASSWORD = "123";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/email_clientserver";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "";
 
     public static Connection connect() throws SQLException {
         return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
     }
-
+     public static Connection getConnection() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            String URL = "jdbc:mysql://localhost:3306/email_clientserver?user=root&password=&useUnicode=true&characterEncoding=UTF-8";
+            return DriverManager.getConnection(URL);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     //dăng ký mới
     public static boolean registerUser(String username, String password, String fullName) {
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String query = "INSERT INTO users (username, password, full_name) VALUES (?, ?, ?)";
+        try (Connection connection = getConnection()) {
+            String query = "INSERT INTO users (username, full_name, password) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
-            preparedStatement.setString(3, fullName);
+            preparedStatement.setString(3, password);
+            preparedStatement.setString(2, fullName);
 
             int rowsAffected = preparedStatement.executeUpdate();
 
@@ -67,7 +76,7 @@ public class DatabaseManager {
 //    }
 
     public static void sendEmail(String recipient, String subject, String content, int is_spam, byte is_cc,byte is_bcc, byte addEmail, String file_name) throws IOException {
-        try (Connection connection = connect()) {
+        try (Connection connection = getConnection()) {
             String query = "SELECT * FROM Users WHERE username = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, recipient);
@@ -90,7 +99,7 @@ public class DatabaseManager {
         int id = 0;
         try {
 
-            Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            Connection connection = getConnection();
             String insertSql = "Select user_id from Users WHERE username = ?";
             // Tạo một đối tượng PreparedStatement để thực hiện câu SQL
             PreparedStatement preparedStatement = connection.prepareStatement(insertSql);
@@ -108,7 +117,7 @@ public class DatabaseManager {
 
            
 
-            String procedureCall = "{call sp_InsertEmail(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            String procedureCall = "{call sp_InsertEmail(?, ?, ?, ?, ?, ?, ?, ?)}";
             callableStatement = connection.prepareCall(procedureCall);
 
             // Đặt các tham số cho Procedure (nếu có)
@@ -119,8 +128,8 @@ public class DatabaseManager {
             callableStatement.setInt(5, is_spam);
             callableStatement.setByte(6, is_cc);
             callableStatement.setByte(7, is_bcc);
-            callableStatement.setString(8, file_name);
-            callableStatement.setByte(9, addEmail);
+//            callableStatement.setString(8, file_name);
+            callableStatement.setByte(8, addEmail);
 
             // Thực hiện Procedure
             callableStatement.execute();
@@ -138,4 +147,10 @@ public class DatabaseManager {
 
     //phản hồi mail
     
+    
+    //
+    public static void main(String[] args) {
+        
+        System.out.println(getConnection().toString());
+    }
 }

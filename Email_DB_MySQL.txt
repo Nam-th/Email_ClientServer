@@ -1,0 +1,136 @@
+DROP DATABASE IF EXISTS Email_ClientServer;
+
+-- Create the new database
+CREATE DATABASE Email_ClientServer;
+
+-- Switch to the new database
+USE Email_ClientServer;
+
+-- Create the Users table
+CREATE TABLE Users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    full_name VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email_quota INT DEFAULT 100,
+    UNIQUE (username)
+);
+
+-- Create the Emails table
+CREATE TABLE Emails (
+    email_id INT AUTO_INCREMENT PRIMARY KEY,
+    subject VARCHAR(255),
+    body TEXT,
+    sender_id INT NOT NULL,
+    timestamp DATETIME NOT NULL,
+    is_read TINYINT DEFAULT 0,
+    is_spam TINYINT DEFAULT 0,
+    is_deleted TINYINT DEFAULT 0,
+    FOREIGN KEY (sender_id) REFERENCES Users(user_id)
+);
+
+-- Create the Recipients table
+CREATE TABLE Recipients (
+    recipient_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL, -- Người nhận email
+    email_id INT NOT NULL, -- Email đã nhận
+    is_cc TINYINT DEFAULT 0, -- Có phải là CC không?
+    is_bcc TINYINT DEFAULT 0, -- Có phải là BCC không?
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (email_id) REFERENCES Emails(email_id)
+);
+
+-- Create the EmailAttachments table
+CREATE TABLE EmailAttachments (
+    attachment_id INT AUTO_INCREMENT PRIMARY KEY,
+    email_id INT NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
+    file_data LONGBLOB, -- Sử dụng LONGBLOB thay cho VARBINARY(MAX)
+    FOREIGN KEY (email_id) REFERENCES Emails(email_id)
+);
+
+-- Stored procedure to insert an email
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_InsertEmail;
+CREATE PROCEDURE sp_InsertEmail(
+    IN subject VARCHAR(255),
+    IN body TEXT,
+    IN sender_id INT,
+    IN recipient_id INT,
+    IN is_spam TINYINT,
+    IN is_cc TINYINT,
+    IN is_bcc TINYINT,
+    IN addEmail TINYINT
+)
+BEGIN
+    DECLARE email_id_temp INT;
+
+    IF addEmail = 1 THEN
+        INSERT INTO Emails (subject, body, sender_id, timestamp, is_spam)
+        VALUES (subject, body, sender_id, NOW(), is_spam);
+    END IF;
+
+    SELECT email_id INTO email_id_temp
+    FROM emails
+    ORDER BY email_id DESC
+    LIMIT 1;
+
+    IF email_id_temp IS NOT NULL THEN
+        INSERT INTO Recipients (user_id, email_id, is_cc, is_bcc)
+        VALUES (recipient_id, email_id_temp, is_cc, is_bcc);
+    ELSE
+        -- Xử lý lỗi nếu không thể lấy email_id
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Unable to retrieve email_id';
+    END IF;
+END $$
+DELIMITER ;
+
+
+
+
+-- ##########==== Test Query =====############ --
+
+CALL sp_InsertEmail(
+    'Test Subject',            -- subject
+    'This is a test email body.',  -- body
+    1,                         -- sender_id (Giả sử ID của người gửi là 1)
+    2,                         -- recipient_id (Giả sử ID của người nhận là 2)
+    0,                         -- is_spam (0 cho không phải spam)
+    1,                         -- is_cc (1 cho có CC)
+    0,                         -- is_bcc (0 cho không có BCC)
+    1                          -- addEmail (1 để thêm email vào bảng Emails)
+);
+
+-- Queries for different operations
+-- Get the latest email_id
+SELECT email_id
+FROM Emails
+ORDER BY email_id DESC
+LIMIT 1;
+
+-- Retrieve spam emails for a specific user
+SELECT e.timestamp, u.username, e.subject, e.body
+FROM Emails e
+JOIN Recipients r ON e.email_id = r.email_id
+JOIN Users u ON u.user_id = e.sender_id
+WHERE r.user_id = 1 AND e.is_spam = 1;
+
+-- Retrieve inbox emails for a specific user
+SELECT e.timestamp, r.user_id, e.subject, e.body
+FROM Emails e
+JOIN Recipients r ON e.email_id = r.email_id
+JOIN Users u ON u.user_id = e.sender_id
+WHERE e.sender_id = 2;
+
+-- Retrieve sent emails for a specific user
+SELECT e.timestamp, u.username, e.subject, e.body
+FROM Recipients r
+INNER JOIN Users u ON r.user_id = u.user_id
+INNER JOIN Emails e ON e.email_id = r.email_id
+WHERE r.email_id IN (
+    SELECT email_id FROM Emails WHERE sender_id = 1
+);
+
+-- Reset auto-increment values for testing
+ALTER TABLE Emails AUTO_INCREMENT = 1;
+ALTER TABLE Recipients AUTO_INCREMENT = 1;

@@ -41,11 +41,11 @@ public class MailLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        txtMatkhau = new javax.swing.JTextField();
-        btnDangNhap = new javax.swing.JButton();
-        btnThoát = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         lbldangky = new java.awt.Label();
+        txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,24 +58,22 @@ public class MailLogin extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel2.setText("Mật khẩu:");
 
-        txtEmail.setText("luuquangkhanh11c4@gmail.com");
+        txtEmail.setText("th.nam1112@gmail.com");
 
-        txtMatkhau.setText("Aa@123");
-
-        btnDangNhap.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnDangNhap.setText("Đăng Nhập");
-        btnDangNhap.setSelected(true);
-        btnDangNhap.addActionListener(new java.awt.event.ActionListener() {
+        btnLogin.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnLogin.setText("Đăng Nhập");
+        btnLogin.setSelected(true);
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDangNhapActionPerformed(evt);
+                btnLoginActionPerformed(evt);
             }
         });
 
-        btnThoát.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnThoát.setText("Thoát");
-        btnThoát.addActionListener(new java.awt.event.ActionListener() {
+        btnExit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnExit.setText("Thoát");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThoátActionPerformed(evt);
+                btnExitActionPerformed(evt);
             }
         });
 
@@ -91,6 +89,8 @@ public class MailLogin extends javax.swing.JFrame {
             }
         });
 
+        txtPassword.setText("1111");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,16 +105,16 @@ public class MailLogin extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMatkhau)
-                            .addComponent(txtEmail))))
-                .addContainerGap(106, Short.MAX_VALUE))
+                            .addComponent(txtEmail)
+                            .addComponent(txtPassword))))
+                .addGap(106, 106, 106))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(169, 169, 169)
-                        .addComponent(btnDangNhap)
+                        .addComponent(btnLogin)
                         .addGap(80, 80, 80)
-                        .addComponent(btnThoát))
+                        .addComponent(btnExit))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(139, 139, 139)
                         .addComponent(jLabel4)
@@ -126,46 +126,45 @@ public class MailLogin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(68, 68, 68)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(51, 51, 51)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtMatkhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel4))
-                    .addComponent(lbldangky, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel1)
+                .addGap(51, 51, 51)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbldangky, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDangNhap)
-                    .addComponent(btnThoát))
-                .addContainerGap(63, Short.MAX_VALUE))
+                    .addComponent(btnLogin)
+                    .addComponent(btnExit))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 
         try {
             SocketManager socketManager = new SocketManager(SERVER_HOST, SERVER_PORT);
             String email = txtEmail.getText();
-            String password = txtMatkhau.getText();
+            String password = new String(txtPassword.getPassword());
             String requestType = "login";
 
             String response = socketManager.sendRequest(requestType, email, password);
 
             if ("Đăng Nhập Thành Công".equals(response)) {
                 // UserManager.setUser(User.getUserByUsername(email, password)); 
-                frmMailClient f = new frmMailClient();
-                f.setVisible(true);
+                new frmMailClient().setVisible(true);
+                
             } else {
-                JOptionPane.showMessageDialog(this, "Tài Khoản và mật khẩu sai");
+                JOptionPane.showMessageDialog(this, "Email hoặc mật khẩu chưa chính xác!");
             }
 
             // Sau khi sử dụng xong, đảm bảo đóng kết nối
@@ -175,16 +174,16 @@ public class MailLogin extends javax.swing.JFrame {
         }
 
 
-    }//GEN-LAST:event_btnDangNhapActionPerformed
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     private void lbldangkyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbldangkyMouseClicked
         frmDangKimoi f = new frmDangKimoi();
         f.setVisible(true);
     }//GEN-LAST:event_lbldangkyMouseClicked
 
-    private void btnThoátActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoátActionPerformed
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_btnThoátActionPerformed
+    }//GEN-LAST:event_btnExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,7 +212,7 @@ public class MailLogin extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        System.out.println("Client");
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -223,15 +222,15 @@ public class MailLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDangNhap;
-    private javax.swing.JButton btnThoát;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private java.awt.Label lbldangky;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtMatkhau;
+    private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 
 }

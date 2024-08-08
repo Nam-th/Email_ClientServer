@@ -15,8 +15,7 @@ public class frmDangKimoi extends javax.swing.JFrame {
     public frmDangKimoi() {
         initComponents();
     }
-    
-    private static final String SERVER_HOST = "192.168.252.247";
+    private static final String SERVER_HOST = "localhost";
      private static final int SERVER_PORT = 1234;
 
     /**
@@ -36,7 +35,7 @@ public class frmDangKimoi extends javax.swing.JFrame {
         txtFullname = new javax.swing.JTextField();
         txtpassword = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
-        btnDangKý = new javax.swing.JButton();
+        btnRegister = new javax.swing.JButton();
         btnThoat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -53,11 +52,11 @@ public class frmDangKimoi extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Họ Tên");
 
-        btnDangKý.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnDangKý.setText("Đăng Ký");
-        btnDangKý.addActionListener(new java.awt.event.ActionListener() {
+        btnRegister.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnRegister.setText("Đăng Ký");
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDangKýActionPerformed(evt);
+                btnRegisterActionPerformed(evt);
             }
         });
 
@@ -82,7 +81,7 @@ public class frmDangKimoi extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(114, 114, 114)
-                                .addComponent(btnDangKý)
+                                .addComponent(btnRegister)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnThoat))
                             .addGroup(layout.createSequentialGroup()
@@ -127,7 +126,7 @@ public class frmDangKimoi extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDangKý)
+                    .addComponent(btnRegister)
                     .addComponent(btnThoat))
                 .addGap(49, 49, 49))
         );
@@ -135,7 +134,7 @@ public class frmDangKimoi extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnDangKýActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKýActionPerformed
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         try (Socket socket = new Socket(SERVER_HOST, SERVER_PORT)) {
         BufferedReader userInputReader = new BufferedReader(new InputStreamReader(System.in));
         DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
@@ -144,7 +143,7 @@ public class frmDangKimoi extends javax.swing.JFrame {
        // System.out.print("Enter email: ");
         String email = txtusername.getText();
        // System.out.print("Enter password: ");
-        String password = txtpassword.getText();
+        String password = new String (txtpassword.getPassword());
         
         String Full_name = txtFullname.getText();
         String requestType = "REGISTER";
@@ -165,7 +164,7 @@ public class frmDangKimoi extends javax.swing.JFrame {
     } catch (IOException e) {
         e.printStackTrace();
     }
-    }//GEN-LAST:event_btnDangKýActionPerformed
+    }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
        this.setVisible(false);
@@ -207,7 +206,7 @@ public class frmDangKimoi extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDangKý;
+    private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnThoat;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

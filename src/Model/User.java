@@ -75,14 +75,14 @@ public class User {
     
     public static User getUserByUsername(String username, String password) {
         User user = null;
-        String sql = "SELECT * FROM Users WHERE username = ? and password = ?";
+        String sql = "SELECT * FROM users WHERE username = ? and password = ?";
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
             
-            connection = DatabaseManager.connect();
+            connection = DatabaseManager.getConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);

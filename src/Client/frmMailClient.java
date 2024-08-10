@@ -1,6 +1,7 @@
 
-package Server;
+package Client;
 
+import Server.EmailData;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;

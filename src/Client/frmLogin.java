@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Server;
+package Client;
 
 import Model.User;
+import Server.SocketManager;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -17,12 +18,12 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
-public class MailLogin extends javax.swing.JFrame {
+public class frmLogin extends javax.swing.JFrame {
 
     /**
      * Creates new form MailClient
      */
-    public MailLogin() {
+    public frmLogin() {
         initComponents();
     }
     private static final String SERVER_HOST = "localhost";
@@ -58,7 +59,7 @@ public class MailLogin extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel2.setText("Mật khẩu:");
 
-        txtEmail.setText("th.nam1112@gmail.com");
+        txtEmail.setText("ngocuyenlepham@gmail.com");
 
         btnLogin.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnLogin.setText("Đăng Nhập");
@@ -177,7 +178,7 @@ public class MailLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void lbldangkyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbldangkyMouseClicked
-        frmDangKimoi f = new frmDangKimoi();
+        frmRegister f = new frmRegister();
         f.setVisible(true);
     }//GEN-LAST:event_lbldangkyMouseClicked
 
@@ -202,13 +203,13 @@ public class MailLogin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MailLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MailLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MailLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MailLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -216,7 +217,7 @@ public class MailLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MailLogin().setVisible(true);
+                new frmLogin().setVisible(true);
             }
         });
     }

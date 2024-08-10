@@ -32,7 +32,7 @@ public class DatabaseManager {
     }
      public static Connection getConnection() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             String URL = "jdbc:mysql://localhost:3306/email_clientserver?user=root&password=&useUnicode=true&characterEncoding=UTF-8";
             return DriverManager.getConnection(URL);
         } catch (ClassNotFoundException | SQLException e) {

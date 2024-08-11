@@ -117,7 +117,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtEmail">
       <Properties>
-        <Property name="text" type="java.lang.String" value="th.nam1112@gmail.com"/>
+        <Property name="text" type="java.lang.String" value="ngocuyenlepham@gmail.com"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnLogin">

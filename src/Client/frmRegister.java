@@ -1,5 +1,5 @@
 
-package Server;
+package Client;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -7,12 +7,12 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import javax.swing.JOptionPane;
 
-public class frmDangKimoi extends javax.swing.JFrame {
+public class frmRegister extends javax.swing.JFrame {
 
     /**
      * Creates new form frmDangKimoi
      */
-    public frmDangKimoi() {
+    public frmRegister() {
         initComponents();
     }
     private static final String SERVER_HOST = "localhost";
@@ -187,20 +187,21 @@ public class frmDangKimoi extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmDangKimoi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmDangKimoi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmDangKimoi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmDangKimoi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmDangKimoi().setVisible(true);
+                new frmRegister().setVisible(true);
             }
         });
     }

@@ -34,6 +34,7 @@ public class frmMailClient extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGui = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -47,7 +48,6 @@ public class frmMailClient extends javax.swing.JFrame {
         txtNguoigui = new javax.swing.JTextField();
         txtTieude = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        btnGui = new javax.swing.JButton();
         btnDangxuat = new javax.swing.JButton();
         btnThugui = new javax.swing.JButton();
         btnSoanthu = new javax.swing.JButton();
@@ -64,6 +64,17 @@ public class frmMailClient extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnGui.setBackground(new java.awt.Color(255, 0, 0));
+        btnGui.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        btnGui.setForeground(new java.awt.Color(255, 255, 255));
+        btnGui.setText("Send");
+        btnGui.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuiActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnGui, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 390, 90, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/HTD.png"))); // NOI18N
         jLabel8.setText("jLabel8");
@@ -129,17 +140,6 @@ public class frmMailClient extends javax.swing.JFrame {
         jLabel2.setText(" Người Gửi");
         jLabel2.setName("jLabel2"); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 80, -1, 30));
-
-        btnGui.setBackground(new java.awt.Color(255, 0, 0));
-        btnGui.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        btnGui.setForeground(new java.awt.Color(255, 255, 255));
-        btnGui.setText("Gửi");
-        btnGui.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuiActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnGui, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 390, 90, 30));
 
         btnDangxuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/8.png"))); // NOI18N
         btnDangxuat.setBorder(null);
@@ -349,47 +349,12 @@ public class frmMailClient extends javax.swing.JFrame {
         }
 
  
-        btnGui.setVisible(val);
+        btnGui.setVisible(!val);
         btnPhanhoi.setVisible(!val);
     }
     private void btnPhanhoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPhanhoiActionPerformed
         setGD(true);
     }//GEN-LAST:event_btnPhanhoiActionPerformed
-
-    private void btnGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiActionPerformed
-        try {
-            Socket clientSocket = new Socket(SERVER_HOST, SERVER_PORT);
-
-            // Mở luồng gửi dữ liệu lên server
-            DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
-
-            // Gọi phương thức để gửi email
-            String recipient = (txtNguoigui.getText()); // Lấy địa chỉ người nhận từ giao diện
-            String subject = txtTieude.getText(); // Lấy tiêu đề từ giao diện
-            String content = txtNoidung.getText(); // Lấy nội dung từ giao diện
-
-            // Ghi các thông tin cần gửi lên server
-            outputStream.writeUTF("guimail");
-            outputStream.writeUTF(recipient);
-            outputStream.writeUTF(subject);
-            outputStream.writeUTF("NO");
-            outputStream.writeUTF(content);
-
-            outputStream.flush();
-
-            // Nhận kết quả từ server
-            DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
-            String response = inputStream.readUTF();
-            JOptionPane.showMessageDialog(this, response);
-
-            // sendMailToServer(clientSocket, outputStream, recipient, subject, content);
-            // Sau khi gửi email, bạn có thể tiếp tục sử dụng kết nối và luồng cho các yêu cầu khác nếu cần.
-            // Đóng kết nối khi không cần thiết nữa
-            clientSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnGuiActionPerformed
 
     private void btnThuracActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThuracActionPerformed
         DefaultTableModel tableModel = new DefaultTableModel();
@@ -499,6 +464,42 @@ public class frmMailClient extends javax.swing.JFrame {
     private void btnDangxuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangxuatActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_btnDangxuatActionPerformed
+
+    private void btnGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiActionPerformed
+        // TODO add your handling code here:
+        try {
+            Socket clientSocket = new Socket(SERVER_HOST, SERVER_PORT);
+
+            // Mở luồng gửi dữ liệu lên server
+            DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
+
+            // Gọi phương thức để gửi email
+            String recipient = (txtNguoigui.getText()); // Lấy địa chỉ người nhận từ giao diện
+            String subject = txtTieude.getText(); // Lấy tiêu đề từ giao diện
+            String content = txtNoidung.getText(); // Lấy nội dung từ giao diện
+
+            // Ghi các thông tin cần gửi lên server
+            outputStream.writeUTF("guimail");
+            outputStream.writeUTF(recipient);
+            outputStream.writeUTF(subject);
+            outputStream.writeUTF("NO");
+            outputStream.writeUTF(content);
+
+            outputStream.flush();
+
+            // Nhận kết quả từ server
+            DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
+            String response = inputStream.readUTF();
+            JOptionPane.showMessageDialog(this, response);
+
+            // sendMailToServer(clientSocket, outputStream, recipient, subject, content);
+            // Sau khi gửi email, bạn có thể tiếp tục sử dụng kết nối và luồng cho các yêu cầu khác nếu cần.
+            // Đóng kết nối khi không cần thiết nữa
+            clientSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }        
+    }//GEN-LAST:event_btnGuiActionPerformed
 
     /**
      * @param args the command line arguments

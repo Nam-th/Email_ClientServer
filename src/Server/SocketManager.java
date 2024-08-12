@@ -27,6 +27,12 @@ public class SocketManager {
     }
 
     public void close() throws IOException {
-        socket.close();
+//        socket.close();
+        try {
+            if (inputStream != null) inputStream.close();
+            if (outputStream != null) outputStream.close();
+        } finally {
+            if (socket != null) socket.close();
+        }
     }
 }

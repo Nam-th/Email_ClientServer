@@ -20,6 +20,7 @@ public class frmMailClient extends javax.swing.JFrame {
      */
     public frmMailClient() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     private static final String SERVER_HOST = "localhost";
     private static final int SERVER_PORT = 1234;
@@ -33,113 +34,53 @@ public class frmMailClient extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        btnGui = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtNoidung = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        btnPhanhoi = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtnguoidanhan = new javax.swing.JTextField();
+        txtNguoigui = new javax.swing.JTextField();
+        txtTieude = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         btnDangxuat = new javax.swing.JButton();
         btnThugui = new javax.swing.JButton();
         btnSoanthu = new javax.swing.JButton();
         btnHopthuden = new javax.swing.JButton();
         btnThurac = new javax.swing.JButton();
         btnThungrac = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        txtNguoigui = new javax.swing.JTextField();
-        txtTieude = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtNoidung = new javax.swing.JTextArea();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        btnPhanhoi = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        txtnguoidanhan = new javax.swing.JTextField();
-        btnGui = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("HỘP THƯ ĐẾN");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnDangxuat.setText("Đăng xuất");
-        btnDangxuat.addActionListener(new java.awt.event.ActionListener() {
+        btnGui.setBackground(new java.awt.Color(255, 0, 0));
+        btnGui.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        btnGui.setForeground(new java.awt.Color(255, 255, 255));
+        btnGui.setText("Send");
+        btnGui.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDangxuatActionPerformed(evt);
+                btnGuiActionPerformed(evt);
             }
         });
+        getContentPane().add(btnGui, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 390, 90, 30));
 
-        btnThugui.setText("Thư Đã Gửi");
-        btnThugui.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThuguiActionPerformed(evt);
-            }
-        });
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/HTD.png"))); // NOI18N
+        jLabel8.setText("jLabel8");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 308, 65));
 
-        btnSoanthu.setText("Soạn Thư");
-        btnSoanthu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSoanthuActionPerformed(evt);
-            }
-        });
-
-        btnHopthuden.setText("Hộp Thư Đến");
-        btnHopthuden.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHopthudenActionPerformed(evt);
-            }
-        });
-
-        btnThurac.setText("Thư Rác");
-        btnThurac.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThuracActionPerformed(evt);
-            }
-        });
-
-        btnThungrac.setText("Thùng rác");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSoanthu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnThurac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnThugui, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnHopthuden, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-                            .addComponent(btnThungrac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(btnDangxuat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnSoanthu)
-                .addGap(8, 8, 8)
-                .addComponent(btnHopthuden)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnThugui)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnThurac)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnThungrac)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addComponent(btnDangxuat)
-                .addContainerGap())
-        );
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setText("Hộp Thư Đến");
-
+        jTable1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -158,147 +99,109 @@ public class frmMailClient extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 545, 340));
+
         txtNoidung.setColumns(20);
         txtNoidung.setRows(5);
         jScrollPane2.setViewportView(txtNoidung);
 
-        jLabel2.setText("Người Gửi");
-        jLabel2.setName("jLabel2"); // NOI18N
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 240, 291, 180));
 
-        jLabel3.setText("Tiêu Đề");
+        jLabel3.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel3.setText("  Tiêu Đề");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 80, -1, 30));
 
-        jLabel4.setText("Nội Dung");
+        jLabel4.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel4.setText(" Nội Dung");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 217, -1, 20));
 
+        btnPhanhoi.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        btnPhanhoi.setForeground(new java.awt.Color(255, 0, 0));
         btnPhanhoi.setText("Phản Hồi");
         btnPhanhoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPhanhoiActionPerformed(evt);
             }
         });
+        getContentPane().add(btnPhanhoi, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 350, -1, 30));
 
-        jLabel5.setText("Những người đã nhận email");
+        jLabel5.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel5.setText(" Những người đã nhận email");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 150, -1, 30));
+        getContentPane().add(txtnguoidanhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 180, 390, 30));
+        getContentPane().add(txtNguoigui, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 110, 170, 30));
+        getContentPane().add(txtTieude, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 110, 180, 30));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(txtnguoidanhan, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtnguoidanhan, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
-        );
+        jLabel2.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel2.setText(" Người Gửi");
+        jLabel2.setName("jLabel2"); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 80, -1, 30));
 
-        btnGui.setText("Gửi");
-        btnGui.addActionListener(new java.awt.event.ActionListener() {
+        btnDangxuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/8.png"))); // NOI18N
+        btnDangxuat.setBorder(null);
+        btnDangxuat.setContentAreaFilled(false);
+        btnDangxuat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuiActionPerformed(evt);
+                btnDangxuatActionPerformed(evt);
             }
         });
+        getContentPane().add(btnDangxuat, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 138, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(499, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addGap(382, 382, 382))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(233, 233, 233)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel4))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(txtNguoigui, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel3)
-                                        .addComponent(txtTieude, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(67, 67, 67))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btnPhanhoi)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(btnGui)
-                                            .addGap(15, 15, 15)))
-                                    .addGap(32, 32, 32))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(23, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtNguoigui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtTieude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4)
-                                .addGap(113, 113, 113)
-                                .addComponent(btnPhanhoi)
-                                .addGap(16, 16, 16)))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGui))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70))
-        );
+        btnThugui.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/6.png"))); // NOI18N
+        btnThugui.setBorder(null);
+        btnThugui.setContentAreaFilled(false);
+        btnThugui.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThuguiActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnThugui, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 138, 40));
+
+        btnSoanthu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/4.png"))); // NOI18N
+        btnSoanthu.setBorder(null);
+        btnSoanthu.setContentAreaFilled(false);
+        btnSoanthu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSoanthuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSoanthu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 138, 40));
+
+        btnHopthuden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/5.png"))); // NOI18N
+        btnHopthuden.setBorder(null);
+        btnHopthuden.setContentAreaFilled(false);
+        btnHopthuden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHopthudenActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnHopthuden, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 138, 40));
+
+        btnThurac.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/thurac.png"))); // NOI18N
+        btnThurac.setBorder(null);
+        btnThurac.setContentAreaFilled(false);
+        btnThurac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThuracActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnThurac, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 138, 40));
+
+        btnThungrac.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/7.png"))); // NOI18N
+        btnThungrac.setBorder(null);
+        btnThungrac.setContentAreaFilled(false);
+        getContentPane().add(btnThungrac, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 138, 40));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/nenHopthuden1.png"))); // NOI18N
+        jLabel7.setText("jLabel7");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnDangxuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangxuatActionPerformed
-        this.setVisible(false);
-    }//GEN-LAST:event_btnDangxuatActionPerformed
-
-    private void btnSoanthuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoanthuActionPerformed
-        frmSend f = new frmSend();
-        f.setVisible(true);
-    }//GEN-LAST:event_btnSoanthuActionPerformed
 
     private void loaddata(List<EmailData> emailDataList) {
         try {
@@ -369,106 +272,6 @@ public class frmMailClient extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_formWindowOpened
-
-    private void btnThuguiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThuguiActionPerformed
-        DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.addColumn("Timestamp");
-        tableModel.addColumn("Username");
-        tableModel.addColumn("Subject");
-        tableModel.addColumn("Body");
-        try {
-            Socket clientSocket = new Socket(SERVER_HOST, SERVER_PORT);
-            DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
-
-            outputStream.writeUTF("thudagui");
-            outputStream.flush();
-
-            // Tạo đối tượng ObjectInputStream để đọc dữ liệu từ máy chủ
-            ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
-
-            // Nhận danh sách dữ liệu từ máy chủ
-             emailDataList = (List<EmailData>) objectInputStream.readObject();
-
-            // Xử lý danh sách dữ liệu
-//            for (EmailData data : emailDataList) {
-//                // Thực hiện xử lý dữ liệu ở đây
-//                System.out.println("Timestamp: " + data.getTimestamp());
-//                System.out.println("Username: " + data.getUsername());
-//                System.out.println("Subject: " + data.getSubject());
-//                System.out.println("Body: " + data.getBody());
-//            }
-            loaddata(emailDataList);
-            // Đóng kết nối và luồng đầu vào
-            objectInputStream.close();
-            clientSocket.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnThuguiActionPerformed
-
-    private void btnHopthudenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHopthudenActionPerformed
-        DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.addColumn("Timestamp");
-        tableModel.addColumn("Username");
-        tableModel.addColumn("Subject");
-        tableModel.addColumn("Body");
-        try {
-            Socket clientSocket = new Socket(SERVER_HOST, SERVER_PORT);
-            DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
-
-            outputStream.writeUTF("hopthuden");
-            outputStream.flush();
-
-            // Tạo đối tượng ObjectInputStream để đọc dữ liệu từ máy chủ
-            ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
-
-            // Nhận danh sách dữ liệu từ máy chủ
-             emailDataList = (List<EmailData>) objectInputStream.readObject();
-
-            loaddata(emailDataList);
-            // Đóng kết nối và luồng đầu vào
-            objectInputStream.close();
-            clientSocket.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnHopthudenActionPerformed
-
-    private void btnThuracActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThuracActionPerformed
-        DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.addColumn("Timestamp");
-        tableModel.addColumn("Username");
-        tableModel.addColumn("Subject");
-        tableModel.addColumn("Body");
-        try {
-            Socket clientSocket = new Socket(SERVER_HOST, SERVER_PORT);
-            DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
-
-            outputStream.writeUTF("thurac");
-            outputStream.flush();
-
-            // Tạo đối tượng ObjectInputStream để đọc dữ liệu từ máy chủ
-            ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
-
-            // Nhận danh sách dữ liệu từ máy chủ
-             emailDataList = (List<EmailData>) objectInputStream.readObject();
-
-            // Xử lý danh sách dữ liệu
-//            for (EmailData data : emailDataList) {
-//                // Thực hiện xử lý dữ liệu ở đây
-//                System.out.println("Timestamp: " + data.getTimestamp());
-//                System.out.println("Username: " + data.getUsername());
-//                System.out.println("Subject: " + data.getSubject());
-//                System.out.println("Body: " + data.getBody());
-//            }
-            loaddata(emailDataList);
-            // Đóng kết nối và luồng đầu vào
-            objectInputStream.close();
-            clientSocket.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnThuracActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 
@@ -545,15 +348,125 @@ public class frmMailClient extends javax.swing.JFrame {
             jLabel2.setText("Người Gửi");
         }
 
-        jPanel2.setVisible(!val);
-        btnGui.setVisible(val);
+ 
+        btnGui.setVisible(!val);
         btnPhanhoi.setVisible(!val);
     }
     private void btnPhanhoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPhanhoiActionPerformed
         setGD(true);
     }//GEN-LAST:event_btnPhanhoiActionPerformed
 
+    private void btnThuracActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThuracActionPerformed
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("Timestamp");
+        tableModel.addColumn("Username");
+        tableModel.addColumn("Subject");
+        tableModel.addColumn("Body");
+        try {
+            Socket clientSocket = new Socket(SERVER_HOST, SERVER_PORT);
+            DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
+
+            outputStream.writeUTF("thurac");
+            outputStream.flush();
+
+            // Tạo đối tượng ObjectInputStream để đọc dữ liệu từ máy chủ
+            ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+
+            // Nhận danh sách dữ liệu từ máy chủ
+            emailDataList = (List<EmailData>) objectInputStream.readObject();
+
+            // Xử lý danh sách dữ liệu
+            //            for (EmailData data : emailDataList) {
+                //                // Thực hiện xử lý dữ liệu ở đây
+                //                System.out.println("Timestamp: " + data.getTimestamp());
+                //                System.out.println("Username: " + data.getUsername());
+                //                System.out.println("Subject: " + data.getSubject());
+                //                System.out.println("Body: " + data.getBody());
+                //            }
+            loaddata(emailDataList);
+            // Đóng kết nối và luồng đầu vào
+            objectInputStream.close();
+            clientSocket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnThuracActionPerformed
+
+    private void btnHopthudenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHopthudenActionPerformed
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("Timestamp");
+        tableModel.addColumn("Username");
+        tableModel.addColumn("Subject");
+        tableModel.addColumn("Body");
+        try {
+            Socket clientSocket = new Socket(SERVER_HOST, SERVER_PORT);
+            DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
+
+            outputStream.writeUTF("hopthuden");
+            outputStream.flush();
+
+            // Tạo đối tượng ObjectInputStream để đọc dữ liệu từ máy chủ
+            ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+
+            // Nhận danh sách dữ liệu từ máy chủ
+            emailDataList = (List<EmailData>) objectInputStream.readObject();
+
+            loaddata(emailDataList);
+            // Đóng kết nối và luồng đầu vào
+            objectInputStream.close();
+            clientSocket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnHopthudenActionPerformed
+
+    private void btnSoanthuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoanthuActionPerformed
+        frmSend f = new frmSend();
+        f.setVisible(true);
+    }//GEN-LAST:event_btnSoanthuActionPerformed
+
+    private void btnThuguiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThuguiActionPerformed
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("Timestamp");
+        tableModel.addColumn("Username");
+        tableModel.addColumn("Subject");
+        tableModel.addColumn("Body");
+        try {
+            Socket clientSocket = new Socket(SERVER_HOST, SERVER_PORT);
+            DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
+
+            outputStream.writeUTF("thudagui");
+            outputStream.flush();
+
+            // Tạo đối tượng ObjectInputStream để đọc dữ liệu từ máy chủ
+            ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+
+            // Nhận danh sách dữ liệu từ máy chủ
+            emailDataList = (List<EmailData>) objectInputStream.readObject();
+
+            // Xử lý danh sách dữ liệu
+            //            for (EmailData data : emailDataList) {
+                //                // Thực hiện xử lý dữ liệu ở đây
+                //                System.out.println("Timestamp: " + data.getTimestamp());
+                //                System.out.println("Username: " + data.getUsername());
+                //                System.out.println("Subject: " + data.getSubject());
+                //                System.out.println("Body: " + data.getBody());
+                //            }
+            loaddata(emailDataList);
+            // Đóng kết nối và luồng đầu vào
+            objectInputStream.close();
+            clientSocket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnThuguiActionPerformed
+
+    private void btnDangxuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangxuatActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btnDangxuatActionPerformed
+
     private void btnGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiActionPerformed
+        // TODO add your handling code here:
         try {
             Socket clientSocket = new Socket(SERVER_HOST, SERVER_PORT);
 
@@ -585,7 +498,7 @@ public class frmMailClient extends javax.swing.JFrame {
             clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }        
     }//GEN-LAST:event_btnGuiActionPerformed
 
     /**
@@ -632,13 +545,12 @@ public class frmMailClient extends javax.swing.JFrame {
     private javax.swing.JButton btnThugui;
     private javax.swing.JButton btnThungrac;
     private javax.swing.JButton btnThurac;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;

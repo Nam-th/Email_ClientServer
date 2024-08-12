@@ -32,7 +32,7 @@ CREATE TABLE Emails (
 -- Create the Recipients table
 CREATE TABLE Recipients (
     recipient_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL, -- Người nhận email
+    user_id INT NOT NULL, -- Người nhận emailusers
     email_id INT NOT NULL, -- Email đã nhận
     is_cc TINYINT DEFAULT 0, -- Có phải là CC không?
     is_bcc TINYINT DEFAULT 0, -- Có phải là BCC không?
@@ -60,7 +60,9 @@ CREATE PROCEDURE sp_InsertEmail(
     IN is_spam TINYINT,
     IN is_cc TINYINT,
     IN is_bcc TINYINT,
-    IN addEmail TINYINT
+    IN addEmail TINYINT,
+    IN file_name VARCHAR(255),  -- Thêm tên tệp
+    IN file_data LONGBLOB        -- Thêm dữ liệu tệp
 )
 BEGIN
     DECLARE email_id_temp INT;
@@ -78,59 +80,13 @@ BEGIN
     IF email_id_temp IS NOT NULL THEN
         INSERT INTO Recipients (user_id, email_id, is_cc, is_bcc)
         VALUES (recipient_id, email_id_temp, is_cc, is_bcc);
+        
+        IF file_name IS NOT NULL AND file_data IS NOT NULL THEN
+            INSERT INTO EmailAttachments (email_id, file_name, file_data)
+            VALUES (email_id_temp, file_name, file_data);
+        END IF;
     ELSE
-        -- Xử lý lỗi nếu không thể lấy email_id
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Unable to retrieve email_id';
     END IF;
 END $$
 DELIMITER ;
-
-
-
-
--- ##########==== Test Query =====############ --
-
-CALL sp_InsertEmail(
-    'Test Subject',            -- subject
-    'This is a test email body.',  -- body
-    1,                         -- sender_id (Giả sử ID của người gửi là 1)
-    2,                         -- recipient_id (Giả sử ID của người nhận là 2)
-    0,                         -- is_spam (0 cho không phải spam)
-    1,                         -- is_cc (1 cho có CC)
-    0,                         -- is_bcc (0 cho không có BCC)
-    1                          -- addEmail (1 để thêm email vào bảng Emails)
-);
-
--- Queries for different operations
--- Get the latest email_id
-SELECT email_id
-FROM Emails
-ORDER BY email_id DESC
-LIMIT 1;
-
--- Retrieve spam emails for a specific user
-SELECT e.timestamp, u.username, e.subject, e.body
-FROM Emails e
-JOIN Recipients r ON e.email_id = r.email_id
-JOIN Users u ON u.user_id = e.sender_id
-WHERE r.user_id = 1 AND e.is_spam = 1;
-
--- Retrieve inbox emails for a specific user
-SELECT e.timestamp, r.user_id, e.subject, e.body
-FROM Emails e
-JOIN Recipients r ON e.email_id = r.email_id
-JOIN Users u ON u.user_id = e.sender_id
-WHERE e.sender_id = 2;
-
--- Retrieve sent emails for a specific user
-SELECT e.timestamp, u.username, e.subject, e.body
-FROM Recipients r
-INNER JOIN Users u ON r.user_id = u.user_id
-INNER JOIN Emails e ON e.email_id = r.email_id
-WHERE r.email_id IN (
-    SELECT email_id FROM Emails WHERE sender_id = 1
-);
-
--- Reset auto-increment values for testing
-ALTER TABLE Emails AUTO_INCREMENT = 1;
-ALTER TABLE Recipients AUTO_INCREMENT = 1;

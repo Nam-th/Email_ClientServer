@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -274,67 +275,72 @@ public class frmMailClient extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-
         try {
-            setGD(false);
+                setGD(false);
 
-            System.out.println(emailDataList.get(jTable1.getSelectedRow()).getId());
-            Socket clientSocket = new Socket(SERVER_HOST, SERVER_PORT);
-            DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
-            DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
-
-            int ID = emailDataList.get(jTable1.getSelectedRow()).getId();
-            outputStream.writeUTF("laycc");
-            outputStream.writeInt(ID);
-
-            outputStream.flush();
-
-            String listNguoiNhan = "";
-            ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
-            List<EmailData> emailDataList2 = (List<EmailData>) objectInputStream.readObject();
-
-            for (EmailData emailData : emailDataList2) {
-
-                listNguoiNhan += ", " + emailData.getBody();
-            }
-            txtnguoidanhan.setText(listNguoiNhan.replaceFirst(", ", ""));
-
-            String messageType = inputStream.readUTF();
-            if ("attachment".equals(messageType)) {
-                // Nếu là tin nhắn có tệp đính kèm, nhận và lưu tệp
-                String fileName = inputStream.readUTF();
-
-                // Lưu tệp đính kèm
-                String savePath = "src\\FileDinhKemClient\\" + fileName;
-
-                try (FileOutputStream fileOutputStream = new FileOutputStream(savePath)) {
-                    byte[] buffer = new byte[4096];
-                    int bytesRead;
-                    while ((bytesRead = inputStream.read(buffer)) != -1) {
-                        fileOutputStream.write(buffer, 0, bytesRead);
-                    }
-                    System.out.println("Attachment saved at: " + savePath);
+                if (emailDataList == null || emailDataList.isEmpty()) {
+                    System.err.println("emailDataList is null or empty.");
+                    return; // Hoặc thông báo lỗi cho người dùng
                 }
-            }else if("no_attachment".equals(messageType)){
-                System.out.println("Mail này k có file");
+
+                int selectedRow = jTable1.getSelectedRow();
+                if (selectedRow < 0 || selectedRow >= emailDataList.size()) {
+                    System.err.println("Selected row index out of bounds.");
+                    return; // Hoặc thông báo lỗi cho người dùng
+                }
+
+                EmailData selectedEmailData = emailDataList.get(selectedRow);
+                System.out.println(selectedEmailData.getId());
+
+                // Tiếp tục xử lý kết nối và nhận dữ liệu
+                Socket clientSocket = new Socket(SERVER_HOST, SERVER_PORT);
+                DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
+                DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
+
+                int ID = selectedEmailData.getId();
+                outputStream.writeUTF("laycc");
+                outputStream.writeInt(ID);
+
+                outputStream.flush();
+
+                String listNguoiNhan = "";
+                ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+                List<EmailData> emailDataList2 = (List<EmailData>) objectInputStream.readObject();
+
+                for (EmailData emailData : emailDataList2) {
+                    listNguoiNhan += ", " + emailData.getBody();
+                }
+                txtnguoidanhan.setText(listNguoiNhan.replaceFirst(", ", ""));
+
+                String messageType = inputStream.readUTF();
+                if ("attachment".equals(messageType)) {
+                    // Nếu là tin nhắn có tệp đính kèm, nhận và lưu tệp
+                    String fileName = inputStream.readUTF();
+                    String savePath = "src\\FileDinhKemClient\\" + fileName;
+
+                    try (FileOutputStream fileOutputStream = new FileOutputStream(savePath)) {
+                        byte[] buffer = new byte[4096];
+                        int bytesRead;
+                        while ((bytesRead = inputStream.read(buffer)) != -1) {
+                            fileOutputStream.write(buffer, 0, bytesRead);
+                        }
+                        System.out.println("Attachment saved at: " + savePath);
+                    }
+                } else if ("no_attachment".equals(messageType)) {
+                    System.out.println("Mail này k có file");
+                }
+
+                DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+                Object[] data = new Object[4];
+                for (int i = 0; i < 4; i++) {
+                    data[i] = tableModel.getValueAt(selectedRow, i);
+                }
+                txtNguoigui.setText(data[1].toString());
+                txtTieude.setText(data[2].toString());
+                txtNoidung.setText(data[3].toString());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            
-
-            DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-            int row = jTable1.rowAtPoint(evt.getPoint());
-
-            Object[] data = new Object[4];
-
-            for (int i = 0; i < 4; i++) {
-                data[i] = tableModel.getValueAt(row, i);
-            }
-            txtNguoigui.setText(data[1].toString());
-            txtTieude.setText(data[2].toString());
-            txtNoidung.setText(data[3].toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }//GEN-LAST:event_jTable1MouseClicked
 
     public void setGD(boolean val) {
@@ -431,18 +437,25 @@ public class frmMailClient extends javax.swing.JFrame {
         tableModel.addColumn("Username");
         tableModel.addColumn("Subject");
         tableModel.addColumn("Body");
+     
         try {
             Socket clientSocket = new Socket(SERVER_HOST, SERVER_PORT);
             DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
+            DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
 
+            
             outputStream.writeUTF("thudagui");
             outputStream.flush();
 
             // Tạo đối tượng ObjectInputStream để đọc dữ liệu từ máy chủ
-            ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+            // ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
 
+            // Đọc phản hồi từ server
+            String serverMessage = inputStream.readUTF();
+            int emailCount = inputStream.readInt();
+            
             // Nhận danh sách dữ liệu từ máy chủ
-            emailDataList = (List<EmailData>) objectInputStream.readObject();
+           // emailDataList = (List<EmailData>) objectInputStream.readObject();
 
             // Xử lý danh sách dữ liệu
             //            for (EmailData data : emailDataList) {
@@ -452,9 +465,26 @@ public class frmMailClient extends javax.swing.JFrame {
                 //                System.out.println("Subject: " + data.getSubject());
                 //                System.out.println("Body: " + data.getBody());
                 //            }
+                
+                
+                 List<EmailData> emailDataList = new ArrayList<>();
+            for (int i = 0; i < emailCount; i++) {
+                int id = inputStream.readInt();
+                String timestamp = inputStream.readUTF();
+                String username = inputStream.readUTF();
+                String subject = inputStream.readUTF();
+                String body = inputStream.readUTF();
+
+                EmailData emailData = new EmailData(id, timestamp, username, subject, body);
+                emailDataList.add(emailData);
+            }
+                
+                
             loaddata(emailDataList);
             // Đóng kết nối và luồng đầu vào
-            objectInputStream.close();
+           // objectInputStream.close();
+            
+             inputStream.close();
             clientSocket.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -467,38 +497,29 @@ public class frmMailClient extends javax.swing.JFrame {
 
     private void btnGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiActionPerformed
         // TODO add your handling code here:
-        try {
-            Socket clientSocket = new Socket(SERVER_HOST, SERVER_PORT);
+       try (Socket clientSocket = new Socket(SERVER_HOST, SERVER_PORT);
+         DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
+         DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream())) {
 
-            // Mở luồng gửi dữ liệu lên server
-            DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
+        // Send email data
+        String recipient = txtNguoigui.getText();
+        String subject = txtTieude.getText();
+        String content = txtNoidung.getText();
 
-            // Gọi phương thức để gửi email
-            String recipient = (txtNguoigui.getText()); // Lấy địa chỉ người nhận từ giao diện
-            String subject = txtTieude.getText(); // Lấy tiêu đề từ giao diện
-            String content = txtNoidung.getText(); // Lấy nội dung từ giao diện
+        outputStream.writeUTF("guimail");
+        outputStream.writeUTF(recipient);
+        outputStream.writeUTF(subject);
+        outputStream.writeUTF("NO"); // Attachment indicator
+        outputStream.writeUTF(content);
+        outputStream.flush();
 
-            // Ghi các thông tin cần gửi lên server
-            outputStream.writeUTF("guimail");
-            outputStream.writeUTF(recipient);
-            outputStream.writeUTF(subject);
-            outputStream.writeUTF("NO");
-            outputStream.writeUTF(content);
+        // Receive response from server
+        String response = inputStream.readUTF();
+        JOptionPane.showMessageDialog(this, response);
 
-            outputStream.flush();
-
-            // Nhận kết quả từ server
-            DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
-            String response = inputStream.readUTF();
-            JOptionPane.showMessageDialog(this, response);
-
-            // sendMailToServer(clientSocket, outputStream, recipient, subject, content);
-            // Sau khi gửi email, bạn có thể tiếp tục sử dụng kết nối và luồng cho các yêu cầu khác nếu cần.
-            // Đóng kết nối khi không cần thiết nữa
-            clientSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }        
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(this, "Error sending email: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnGuiActionPerformed
 
     /**

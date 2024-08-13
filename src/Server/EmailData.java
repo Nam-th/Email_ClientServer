@@ -3,6 +3,8 @@ package Server;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 //chứa dữ liệu để gửi về client từ các table khác nhau
 public class EmailData implements Serializable {
@@ -14,6 +16,33 @@ public class EmailData implements Serializable {
     private int id;
     private String attachmentFileName;
 
+
+    // Constructor với các tham số
+    public EmailData(int id, String timestampStr, String username, String subject, String body) {
+        this.id = id;
+        // Chuyển đổi String thành Timestamp
+        this.timestamp = convertStringToTimestamp(timestampStr);
+        this.username = username;
+        this.subject = subject;
+        this.body = body;
+    }
+
+    // Default constructor
+    public EmailData() {
+    }
+
+    // Phương thức chuyển đổi String thành Timestamp
+    private Timestamp convertStringToTimestamp(String timestampStr) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            java.util.Date parsedDate = dateFormat.parse(timestampStr);
+            return new Timestamp(parsedDate.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;  // Hoặc có thể ném một ngoại lệ tùy thuộc vào cách bạn muốn xử lý lỗi
+        }
+    }
+    
     public String getAttachmentFileName() {
         return attachmentFileName;
     }

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.math.BigInteger;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Files;
@@ -41,6 +42,7 @@ public class MailServer {
     public static Socket clientSocket;
 
     public static void main(String[] args) throws SQLException {
+       
         try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT)) {
             System.out.println("Server đã sẵn sàng với cổng " + SERVER_PORT);
 
@@ -145,6 +147,7 @@ private static void handleSendMail(Socket clientSocket, DataInputStream inputStr
     String messageType = inputStream.readUTF();
     String savePath = handleAttachment(inputStream, messageType);
 
+
     String message = buildEncryptedMessage(clientSocket, content, allRec);
 
     sendEmails(allRec, subject, message, is_spam, cc, bcc, savePath, outputStream);
@@ -170,24 +173,7 @@ private static String handleAttachment(DataInputStream inputStream, String messa
     }
 }
 
-private static String buildEncryptedMessage(Socket clientSocket, String content, String[] allRec) throws SQLException {
-    String message = UserManager.getUserByIp(clientSocket.getInetAddress().getHostAddress()).getUserId() + ":" + ceasar.Encrypt(content, UserManager.getUserByIp(clientSocket.getInetAddress().getHostAddress()).getUserId()) + "@";
 
-    try (Connection connection = DatabaseManager.getConnection()) {
-        for (String recipient : allRec) {
-            String query = "Select user_id from Users WHERE username = ?";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                preparedStatement.setString(1, recipient);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                while (resultSet.next()) {
-                    int id = resultSet.getInt("user_id");
-                    message += id + ":" + ceasar.Encrypt(content, id) + "@";
-                }
-            }
-        }
-    }
-    return message;
-}
 
 private static void sendEmails(String[] recipients, String subject, String message, int is_spam, byte cc, byte bcc, String savePath, DataOutputStream outputStream) throws SQLException, IOException {
     byte[] fileData = null;
@@ -212,10 +198,10 @@ private static void handleInbox(Socket clientSocket, DataOutputStream outputStre
 }
 
 private static void handleSentMails(Socket clientSocket, DataOutputStream outputStream) throws SQLException, IOException {
-    String query = "SELECT e.timestamp, u.username, e.subject, e.body FROM Recipients r "
-                 + "INNER JOIN Users u ON r.user_id = u.user_id "
-                 + "INNER JOIN Emails e ON e.email_id = r.email_id "
-                 + "WHERE r.email_id IN (SELECT email_id FROM Emails WHERE sender_id = ?) ORDER BY e.timestamp DESC";
+   String query = "SELECT e.email_id, e.timestamp, u.username, e.subject, e.body FROM Recipients r "
+             + "INNER JOIN Users u ON r.user_id = u.user_id "
+             + "INNER JOIN Emails e ON e.email_id = r.email_id "
+             + "WHERE r.email_id IN (SELECT email_id FROM Emails WHERE sender_id = ?) ORDER BY e.timestamp DESC";
     fetchAndSendEmails(clientSocket, outputStream, query);
 }
 
@@ -234,17 +220,19 @@ private static void handleGetAttachment(DataInputStream inputStream, DataOutputS
                  + "JOIN Users u ON r.user_id = u.user_id "
                  + "JOIN EmailAttachments e ON e.email_id = r.email_id "
                  + "WHERE r.email_id = ?";
-    
+
     List<EmailData> emailDataList = new ArrayList<>();
     
     try (Connection connection = DatabaseManager.getConnection();
          PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
         preparedStatement.setInt(1, emailId);
         try (ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 EmailData emailData = new EmailData();
                 emailData.setBody(resultSet.getString("username"));
                 emailData.setAttachmentFileName(resultSet.getString("file_name"));
+
                 emailDataList.add(emailData);
             }
         }
@@ -254,7 +242,7 @@ private static void handleGetAttachment(DataInputStream inputStream, DataOutputS
 }
 
 private static void fetchAndSendEmails(Socket clientSocket, DataOutputStream outputStream, String query) throws SQLException, IOException {
-    List<EmailData> emailDataList = new ArrayList<>();
+     List<EmailData> emailDataList = new ArrayList<>();
     
     try (Connection connection = DatabaseManager.getConnection();
          PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -267,8 +255,9 @@ private static void fetchAndSendEmails(Socket clientSocket, DataOutputStream out
                 emailData.setUsername(resultSet.getString("username"));
                 emailData.setSubject(resultSet.getString("subject"));
 
-                String ciphertextString = resultSet.getString("body");
-                emailData.setBody(ceasar.Encrypt(ciphertextString, -(UserManager.getUserByIp(clientSocket.getInetAddress().getHostAddress()).getUserId())));
+                String encryptedBody = resultSet.getString("body");
+                int userId = UserManager.getUserByIp(clientSocket.getInetAddress().getHostAddress()).getUserId();
+                emailData.setBody(decryptMessage(encryptedBody, userId));
                 
                 emailDataList.add(emailData);
             }
@@ -316,4 +305,57 @@ private static void sendAttachmentToClient(DataOutputStream outputStream, List<E
         int newMailboxSize = 200; // Dung lượng mới sau khi nâng cấp
         setMailboxSize(username, newMailboxSize);
     }
+  
+    
+    
+    
+    private static String buildEncryptedMessage(Socket clientSocket, String content, String[] allRec) throws SQLException {
+    String message = UserManager.getUserByIp(clientSocket.getInetAddress().getHostAddress()).getUserId() + ":" + ceasar.Encrypt(content, UserManager.getUserByIp(clientSocket.getInetAddress().getHostAddress()).getUserId()) + "@";
+
+    try (Connection connection = DatabaseManager.getConnection()) {
+        for (String recipient : allRec) {
+            String query = "Select user_id from Users WHERE username = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                preparedStatement.setString(1, recipient);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("user_id");
+                    message += id + ":" + ceasar.Encrypt(content, id) + "@";
+                }
+            }
+        }
+    }
+    return message;
+    }
+    
+    
+    private static String decryptMessage(String encryptedMessage, int userId) {
+          StringBuilder decryptedMessage = new StringBuilder();
+
+    // Tách các phần của thông điệp đã mã hóa, phân cách bởi dấu '@'
+    String[] parts = encryptedMessage.split("@");
+
+    for (String part : parts) {
+        String[] subParts = part.split(":");
+        
+        if (subParts.length == 2) {
+            int id = Integer.parseInt(subParts[0]);
+            String encryptedContent = subParts[1];
+            
+            if (id == userId) {
+                // Giải mã nội dung cho userId hiện tại
+                decryptedMessage.append(ceasar.Decrypt(encryptedContent, userId));
+                decryptedMessage.append("@");
+            }
+        }
+    }
+
+    // Xóa dấu phân cách '@' cuối cùng nếu có
+    if (decryptedMessage.length() > 0) {
+        decryptedMessage.setLength(decryptedMessage.length() - 1);
+    }
+
+    return decryptedMessage.toString();
+    }
+    
 }

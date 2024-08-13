@@ -17,7 +17,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
+import org.xml.sax.Attributes;
 
 
 public class frmLogin extends javax.swing.JFrame {
@@ -62,7 +62,6 @@ public class frmLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ĐĂNG NHẬP");
         setMinimumSize(new java.awt.Dimension(550, 359));
-        setPreferredSize(new java.awt.Dimension(550, 550));
         setSize(new java.awt.Dimension(550, 550));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -84,7 +83,7 @@ public class frmLogin extends javax.swing.JFrame {
                 txtPasswordActionPerformed(evt);
             }
         });
-        getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 263, 40));
+        getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 270, 40));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/textFrame.png"))); // NOI18N
         jLabel7.setText("jLabel7");
@@ -99,7 +98,7 @@ public class frmLogin extends javax.swing.JFrame {
                 txtEmailActionPerformed(evt);
             }
         });
-        getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 290, 40));
+        getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 290, 40));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/textFrame.png"))); // NOI18N
         jLabel6.setText("jLabel6");

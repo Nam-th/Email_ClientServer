@@ -13,6 +13,8 @@ import java.util.Map;
 public class UserManager {
     private static Map<String, User> userByIp = new HashMap<>();
 
+    private static User user = new User() ;
+    
     public static void addUser(User user, String ip) {
         userByIp.put(ip, user);
     }
@@ -34,6 +36,14 @@ public class UserManager {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    public static User getUser(){   
+        return user; 
+    }
+    
+    public static void setUser(User u1){
+        user = u1;
     }
     
     

@@ -1,5 +1,5 @@
-
 package Client;
+
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -15,13 +15,13 @@ public class frmRegister extends javax.swing.JFrame {
      */
     public frmRegister() {
         initComponents();
-        txtusername.setBackground(new Color(0,0,0,0));
-        txtFullname.setBackground(new Color(0,0,0,0));
-        txtpassword.setBackground(new Color(0,0,0,0));
+        txtusername.setBackground(new Color(0, 0, 0, 0));
+        txtFullname.setBackground(new Color(0, 0, 0, 0));
+        txtpassword.setBackground(new Color(0, 0, 0, 0));
         this.setLocationRelativeTo(null);
     }
     private static final String SERVER_HOST = "localhost";
-     private static final int SERVER_PORT = 1234;
+    private static final int SERVER_PORT = 1234;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -128,38 +128,38 @@ public class frmRegister extends javax.swing.JFrame {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         try (Socket socket = new Socket(SERVER_HOST, SERVER_PORT)) {
-        BufferedReader userInputReader = new BufferedReader(new InputStreamReader(System.in));
-        DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-        BufferedReader serverResponseReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            BufferedReader userInputReader = new BufferedReader(new InputStreamReader(System.in));
+            DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+            BufferedReader serverResponseReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-       // System.out.print("Enter email: ");
-        String email = txtusername.getText();
-       // System.out.print("Enter password: ");
-        String password = new String (txtpassword.getPassword());
-        
-        String Full_name = txtFullname.getText();
-        String requestType = "REGISTER";
+            // System.out.print("Enter email: ");
+            String email = txtusername.getText();
+            // System.out.print("Enter password: ");
+            String password = new String(txtpassword.getPassword());
 
-        // Gửi thông tin đăng ký đến server
-        outputStream.writeUTF(requestType);
-        outputStream.writeUTF(email);
-        outputStream.writeUTF(password);
-        outputStream.writeUTF(Full_name);
-       
-        outputStream.flush();
+            String Full_name = txtFullname.getText();
+            String requestType = "REGISTER";
 
-        // Nhận kết quả từ server
-        String response = serverResponseReader.readLine();
-        //System.out.println("Server response: " + response);
-        
+            // Gửi thông tin đăng ký đến server
+            outputStream.writeUTF(requestType);
+            outputStream.writeUTF(email);
+            outputStream.writeUTF(password);
+            outputStream.writeUTF(Full_name);
+
+            outputStream.flush();
+
+            // Nhận kết quả từ server
+            String response = serverResponseReader.readLine();
+            //System.out.println("Server response: " + response);
+
             JOptionPane.showMessageDialog(this, response);
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
-       this.setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnThoatActionPerformed
 
     /**

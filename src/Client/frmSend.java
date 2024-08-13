@@ -1,19 +1,14 @@
-
 package Client;
 
 import java.awt.Color;
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.Socket;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 public class frmSend extends javax.swing.JFrame {
 
@@ -22,10 +17,10 @@ public class frmSend extends javax.swing.JFrame {
      */
     public frmSend() {
         initComponents();
-        txtTieuDe.setBackground(new Color(0,0,0,0));
-        txtTepdinhkem.setBackground(new Color(0,0,0,0));
-        txtNoiDung.setBackground(new Color(0,0,0,0));
-        txtNguoinhan.setBackground(new Color(0,0,0,0));
+        txtTieuDe.setBackground(new Color(0, 0, 0, 0));
+        txtTepdinhkem.setBackground(new Color(0, 0, 0, 0));
+        txtNoiDung.setBackground(new Color(0, 0, 0, 0));
+        txtNguoinhan.setBackground(new Color(0, 0, 0, 0));
         this.setLocationRelativeTo(null);
     }
     private static final String SERVER_HOST = "localhost";

@@ -147,6 +147,7 @@ private static void handleSendMail(Socket clientSocket, DataInputStream inputStr
     String messageType = inputStream.readUTF();
     String savePath = handleAttachment(inputStream, messageType);
 
+
     String message = buildEncryptedMessage(clientSocket, content, allRec);
 
     sendEmails(allRec, subject, message, is_spam, cc, bcc, savePath, outputStream);
@@ -219,17 +220,19 @@ private static void handleGetAttachment(DataInputStream inputStream, DataOutputS
                  + "JOIN Users u ON r.user_id = u.user_id "
                  + "JOIN EmailAttachments e ON e.email_id = r.email_id "
                  + "WHERE r.email_id = ?";
-    
+
     List<EmailData> emailDataList = new ArrayList<>();
     
     try (Connection connection = DatabaseManager.getConnection();
          PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
         preparedStatement.setInt(1, emailId);
         try (ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 EmailData emailData = new EmailData();
                 emailData.setBody(resultSet.getString("username"));
                 emailData.setAttachmentFileName(resultSet.getString("file_name"));
+
                 emailDataList.add(emailData);
             }
         }

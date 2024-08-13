@@ -75,8 +75,9 @@ public class DatabaseManager {
 //        return false;
 //    }
 
-   
-public static void sendEmail(String recipient, String subject, String content, int is_spam, byte is_cc,byte is_bcc, byte addEmail, String file_name, byte[] file_data) throws IOException {
+
+    public static void sendEmail(String recipient, String subject, String content, int is_spam, byte is_cc,byte is_bcc, byte addEmail, String file_name, byte[] file_data) throws IOException {
+
         try (Connection connection = getConnection()) {
             String query = "SELECT * FROM Users WHERE username = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -147,6 +148,7 @@ public static void sendEmail(String recipient, String subject, String content, i
             }
         }
     }
+
 
     //phản hồi mail
     

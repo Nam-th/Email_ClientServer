@@ -7,7 +7,7 @@ import java.net.Socket;
 
 //tạo ra socket để tái sử dụng
 public class SocketManager {   
-     private Socket socket;
+    private Socket socket;
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
 

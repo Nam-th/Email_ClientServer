@@ -1,4 +1,3 @@
-
 package Server;
 
 import java.io.Serializable;
@@ -15,7 +14,6 @@ public class EmailData implements Serializable {
     private String body;
     private int id;
     private String attachmentFileName;
-
 
     // Constructor với các tham số
     public EmailData(int id, String timestampStr, String username, String subject, String body) {
@@ -42,7 +40,7 @@ public class EmailData implements Serializable {
             return null;  // Hoặc có thể ném một ngoại lệ tùy thuộc vào cách bạn muốn xử lý lỗi
         }
     }
-    
+
     public String getAttachmentFileName() {
         return attachmentFileName;
     }

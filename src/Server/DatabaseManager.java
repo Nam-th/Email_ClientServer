@@ -25,7 +25,7 @@ public class DatabaseManager {
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/email_clientserver";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "root";
+    private static final String DB_PASSWORD = "";
 
     public static Connection connect() throws SQLException {
         return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
@@ -33,7 +33,7 @@ public class DatabaseManager {
      public static Connection getConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String URL = "jdbc:mysql://localhost:3306/email_clientserver?user=root&password=root&useUnicode=true&characterEncoding=UTF-8";
+            String URL = "jdbc:mysql://localhost:3306/email_clientserver?user=root&password=&useUnicode=true&characterEncoding=UTF-8";
             return DriverManager.getConnection(URL);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();

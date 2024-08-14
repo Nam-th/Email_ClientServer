@@ -91,7 +91,7 @@ public class frmLogin extends javax.swing.JFrame {
 
         txtEmail.setBackground(new java.awt.Color(255, 153, 153));
         txtEmail.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        txtEmail.setText(" ngocuyenlepham@gmail.com");
+        txtEmail.setText("ngocuyenlepham@gmail.com");
         txtEmail.setBorder(null);
         txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

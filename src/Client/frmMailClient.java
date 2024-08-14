@@ -229,6 +229,7 @@ public class frmMailClient extends javax.swing.JFrame {
                 tableModel.addRow(rowData);
             }
 
+            jTable1.setModel(tableModel);
             // Làm gì đó với txtNguoigui, txtTieude và txtNoidung (nếu cần)
         } catch (Exception e) {
             e.printStackTrace();
@@ -399,31 +400,69 @@ public class frmMailClient extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThuracActionPerformed
 
     private void btnHopthudenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHopthudenActionPerformed
+
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.addColumn("Timestamp");
         tableModel.addColumn("Username");
         tableModel.addColumn("Subject");
         tableModel.addColumn("Body");
+     
         try {
             Socket clientSocket = new Socket(SERVER_HOST, SERVER_PORT);
             DataOutputStream outputStream = new DataOutputStream(clientSocket.getOutputStream());
+            DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
 
+            
             outputStream.writeUTF("hopthuden");
             outputStream.flush();
 
             // Tạo đối tượng ObjectInputStream để đọc dữ liệu từ máy chủ
-            ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+            // ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
 
-            // Nhận danh sách dữ liệu từ máy chủ
-            emailDataList = (List<EmailData>) objectInputStream.readObject();
+            // Đọc phản hồi từ server
+            String serverMessage = inputStream.readUTF();
+            int emailCount = inputStream.readInt();
+                
+                 List<EmailData> emailDataList = new ArrayList<>();
+            for (int i = 0; i < emailCount; i++) {
+                int id = inputStream.readInt();
+                String timestamp = inputStream.readUTF();
+                String username = inputStream.readUTF();
+                String subject = inputStream.readUTF();
+                String body = inputStream.readUTF();
 
+                EmailData emailData = new EmailData(id, timestamp, username, subject, body);
+                emailDataList.add(emailData);
+            }
+                
+                
             loaddata(emailDataList);
             // Đóng kết nối và luồng đầu vào
-            objectInputStream.close();
+           // objectInputStream.close();
+            
+             inputStream.close();
             clientSocket.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        // Thêm MouseListener cho jTable1
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            int selectedRow = jTable1.getSelectedRow();
+            if (selectedRow >= 0) {
+                // Lấy dữ liệu từ hàng được chọn
+                String nguoiGui = (String) jTable1.getValueAt(selectedRow, 1); // Cột "Người gửi"
+                String tieuDe = (String) jTable1.getValueAt(selectedRow, 2); // Cột "Tiêu đề"
+                String noiDung = (String) jTable1.getValueAt(selectedRow, 3); // Cột "Nội dung"
+
+                // Hiển thị dữ liệu vào các JTextField
+                txtNguoigui.setText(nguoiGui);
+                txtTieude.setText(tieuDe);
+                txtNoidung.setText(noiDung);
+            }
+        }
+    });
     }//GEN-LAST:event_btnHopthudenActionPerformed
 
     private void btnSoanthuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoanthuActionPerformed
